@@ -22,7 +22,7 @@ const categoriesHtml = categoriesData.map(cat => `
           <div class="category-count">${cat.count} Products</div>
         </div>`).join('\n');
 
-// Pre-rendered search results HTML (matches the user's reference screenshot!)
+// Pre-rendered search results HTML (Using real authentic product photography)
 const searchResultsHtml = `
       <div class="results-header-info" id="resultsCountText">
         <div style="display: flex; align-items: flex-start; justify-content: space-between; width: 100%; flex-wrap: wrap; gap: 12px;">
@@ -41,22 +41,7 @@ const searchResultsHtml = `
         <!-- Card 1: Apple iPhone 15 (Active Selected) -->
         <div class="product-card active-selected" data-id="1" onclick="selectProduct(1, true)">
           <div class="product-card-thumb-wrapper">
-            <svg class="product-card-thumb" viewBox="0 0 120 180" width="100" height="150">
-              <rect x="10" y="5" width="100" height="170" rx="22" fill="#180036" stroke="#8A2BE2" stroke-width="4"/>
-              <rect x="42" y="10" width="36" height="10" rx="5" fill="#000"/>
-              <circle cx="68" cy="15" r="2.5" fill="#3864A7"/>
-              <rect x="18" y="28" width="84" height="138" rx="14" fill="url(#screenGrad1)"/>
-              <text x="60" y="55" fill="#FFF" font-size="12" font-family="Inter, sans-serif" font-weight="700" text-anchor="middle">09:41</text>
-              <text x="60" y="68" fill="#C4B5D9" font-size="6" font-family="Inter, sans-serif" text-anchor="middle">Sunday, October 4</text>
-              <ellipse cx="60" cy="115" rx="24" ry="24" fill="#9D4EDD" opacity="0.6"/>
-              <ellipse cx="60" cy="115" rx="14" ry="14" fill="#C77DFF" opacity="0.9"/>
-              <defs>
-                <linearGradient id="screenGrad1" x1="0" y1="0" x2="0" y2="1">
-                  <stop stop-color="#240046"/>
-                  <stop offset="1" stop-color="#0F0022"/>
-                </linearGradient>
-              </defs>
-            </svg>
+            <img class="product-card-thumb" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80" alt="Apple iPhone 15" onerror="handleImageError(this)" loading="lazy" />
             <span class="product-card-save-badge">Save ₹1,500</span>
           </div>
           <div class="product-card-content">
@@ -64,8 +49,8 @@ const searchResultsHtml = `
               <div class="product-card-cat-label">ELECTRONICS</div>
               <h4 class="product-card-title">Apple iPhone 15</h4>
               <div class="product-card-rating">
-                <span class="star-rating-pill">★ 4.7</span>
-                <span>(4,320)</span>
+                <span class="star-rating-pill">★ 4.8</span>
+                <span>(14,200)</span>
               </div>
             </div>
             <div class="product-card-bottom-row">
@@ -81,36 +66,22 @@ const searchResultsHtml = `
         <!-- Card 2: Samsung Galaxy Phone -->
         <div class="product-card" data-id="2" onclick="selectProduct(2, true)">
           <div class="product-card-thumb-wrapper">
-            <svg class="product-card-thumb" viewBox="0 0 120 180" width="100" height="150">
-              <rect x="10" y="5" width="100" height="170" rx="20" fill="#0E0024" stroke="#5A189A" stroke-width="3"/>
-              <circle cx="60" cy="14" r="3" fill="#000"/>
-              <rect x="17" y="24" width="86" height="142" rx="12" fill="url(#screenGrad2)"/>
-              <text x="60" y="52" fill="#FFF" font-size="12" font-family="Inter, sans-serif" font-weight="700" text-anchor="middle">12:45</text>
-              <text x="60" y="64" fill="#A594C2" font-size="6" font-family="Inter, sans-serif" text-anchor="middle">Samsung Galaxy 5G</text>
-              <circle cx="60" cy="110" r="18" fill="#3B82F6" opacity="0.4"/>
-              <circle cx="60" cy="110" r="10" fill="#60A5FA" opacity="0.8"/>
-              <defs>
-                <linearGradient id="screenGrad2" x1="0" y1="0" x2="0" y2="1">
-                  <stop stop-color="#1E1B4B"/>
-                  <stop offset="1" stop-color="#0F172A"/>
-                </linearGradient>
-              </defs>
-            </svg>
-            <span class="product-card-save-badge">Save ₹250</span>
+            <img class="product-card-thumb" src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&auto=format&fit=crop&q=80" alt="Samsung Galaxy S24 Ultra" onerror="handleImageError(this)" loading="lazy" />
+            <span class="product-card-save-badge">Save ₹15,000</span>
           </div>
           <div class="product-card-content">
             <div>
               <div class="product-card-cat-label">ELECTRONICS</div>
-              <h4 class="product-card-title">Samsung Galaxy Phone</h4>
+              <h4 class="product-card-title">Samsung Galaxy S24 Ultra</h4>
               <div class="product-card-rating">
-                <span class="star-rating-pill">★ 4.6</span>
-                <span>(3,200)</span>
+                <span class="star-rating-pill">★ 4.7</span>
+                <span>(8,940)</span>
               </div>
             </div>
             <div class="product-card-bottom-row">
               <div class="price-col">
                 <span class="price-col-from">FROM</span>
-                <span class="product-card-price-val">₹21,499</span>
+                <span class="product-card-price-val">₹1,18,499</span>
               </div>
               <button class="btn-card-action btn-card-compare">Compare →</button>
             </div>
@@ -118,25 +89,18 @@ const searchResultsHtml = `
         </div>
 
         <!-- Card 3: Sony WH-1000XM5 Headphones -->
-        <div class="product-card" data-id="3" onclick="selectProduct(3, true)">
+        <div class="product-card" data-id="7" onclick="selectProduct(7, true)">
           <div class="product-card-thumb-wrapper">
-            <svg class="product-card-thumb" viewBox="0 0 140 140" width="110" height="110">
-              <path d="M25 80 C25 35 115 35 115 80" fill="none" stroke="#2D3748" stroke-width="12" stroke-linecap="round"/>
-              <rect x="18" y="75" width="16" height="35" rx="8" fill="#1A202C"/>
-              <rect x="106" y="75" width="16" height="35" rx="8" fill="#1A202C"/>
-              <ellipse cx="26" cy="92" rx="12" ry="18" fill="#0D0022" stroke="#4A5568" stroke-width="2"/>
-              <ellipse cx="114" cy="92" rx="12" ry="18" fill="#0D0022" stroke="#4A5568" stroke-width="2"/>
-              <ellipse cx="70" cy="120" rx="45" ry="6" fill="#000" opacity="0.15"/>
-            </svg>
-            <span class="product-card-save-badge">Save ₹500</span>
+            <img class="product-card-thumb" src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&auto=format&fit=crop&q=80" alt="Sony WH-1000XM5 Headphones" onerror="handleImageError(this)" loading="lazy" />
+            <span class="product-card-save-badge">Save ₹9,000</span>
           </div>
           <div class="product-card-content">
             <div>
               <div class="product-card-cat-label">ELECTRONICS</div>
               <h4 class="product-card-title">Sony WH-1000XM5 Headphones</h4>
               <div class="product-card-rating">
-                <span class="star-rating-pill">★ 4.7</span>
-                <span>(1,650)</span>
+                <span class="star-rating-pill">★ 4.8</span>
+                <span>(9,150)</span>
               </div>
             </div>
             <div class="product-card-bottom-row">
@@ -524,9 +488,27 @@ ${css}
           <span class="strip-bullet">•</span>
           <span>Save</span>
         </div>
-        <button class="strip-scroll-btn" onclick="document.getElementById('searchResultsSection').scrollIntoView({behavior:'smooth'})" aria-label="Scroll to content">
+        <button class="strip-scroll-btn" onclick="document.getElementById('categoriesSection').scrollIntoView({behavior:'smooth'})" aria-label="Scroll to categories">
           ↓
         </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CATEGORIES SECTION (PLACED DIRECTLY UNDER HOME HERO)
+       ============================================================ -->
+  <section class="section-wrapper" id="categoriesSection" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Explore Categories</h2>
+          <p class="section-subtitle">Find deals and compare prices across 7 major e-commerce categories</p>
+        </div>
+      </div>
+
+      <div class="categories-grid" id="categoriesGrid">
+${categoriesHtml}
       </div>
     </div>
   </section>
@@ -547,22 +529,7 @@ ${searchResultsHtml}
     <div class="comparison-section">
       <div class="comparison-header">
         <div class="product-image-container">
-          <svg class="product-main-img" id="detailProductImage" viewBox="0 0 160 220" width="160" height="220">
-            <rect x="15" y="8" width="130" height="204" rx="26" fill="#180036" stroke="#8A2BE2" stroke-width="5"/>
-            <rect x="56" y="14" width="48" height="12" rx="6" fill="#000"/>
-            <circle cx="90" cy="20" r="3" fill="#3864A7"/>
-            <rect x="25" y="36" width="110" height="166" rx="18" fill="url(#screenGradMain)"/>
-            <text x="80" y="70" fill="#FFF" font-size="16" font-family="Inter, sans-serif" font-weight="700" text-anchor="middle">09:41</text>
-            <text x="80" y="85" fill="#C4B5D9" font-size="8" font-family="Inter, sans-serif" text-anchor="middle">Sunday, October 4</text>
-            <circle cx="80" cy="140" r="32" fill="#9D4EDD" opacity="0.6"/>
-            <circle cx="80" cy="140" r="18" fill="#C77DFF" opacity="0.9"/>
-            <defs>
-              <linearGradient id="screenGradMain" x1="0" y1="0" x2="0" y2="1">
-                <stop stop-color="#240046"/>
-                <stop offset="1" stop-color="#0F0022"/>
-              </linearGradient>
-            </defs>
-          </svg>
+          <img class="product-main-img" id="detailProductImage" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80" alt="Apple iPhone 15" onerror="handleImageError(this)" />
         </div>
 
         <div class="product-info-col">
@@ -671,23 +638,6 @@ ${storeCardsHtml}
     </div>
   </section>
 
-  <!-- ============================================================
-       CATEGORIES SECTION
-       ============================================================ -->
-  <section class="section-wrapper" id="categoriesSection">
-    <div class="container">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title">Explore Categories</h2>
-          <p class="section-subtitle">Find deals and compare prices across 7 major e-commerce categories</p>
-        </div>
-      </div>
-
-      <div class="categories-grid" id="categoriesGrid">
-${categoriesHtml}
-      </div>
-    </div>
-  </section>
 
   <!-- ============================================================
        PRICE DISCLAIMER BANNER
