@@ -114,14 +114,22 @@ const searchResultsHtml = `
         </div>
       </div>`;
 
+// Authentic brand SVGs embedded directly for 100% resilient rendering in any deployment
+const STORE_SVGS = {
+  amazon: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><path d="M22 24.5C18.2 24.5 15.2 23.2 15.2 20.3C15.2 17.5 17.7 16.3 21.8 16.3C23.6 16.3 24.8 16.6 25.5 16.9V16.3C25.5 14.8 24.3 13.9 22.3 13.9C20.6 13.9 18.9 14.4 17.6 15.2L16.4 13.2C18 12.1 20.4 11.5 22.8 11.5C26.5 11.5 28.5 13.3 28.5 16.6V24.2H25.6V22.6C24.7 23.8 23.3 24.5 22 24.5ZM22.3 22.3C23.7 22.3 24.8 21.4 25.5 20.2V18.7C24.8 18.3 23.8 18.1 22.6 18.1C20.2 18.1 18.5 18.9 18.5 20.3C18.5 21.5 19.6 22.3 22.3 22.3Z" fill="#131921"/><text x="32" y="23" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="16" fill="#131921" letter-spacing="-0.5">amazon</text><path d="M18 29.5C28 35.5 58 35.5 78 28.5" stroke="#FF9900" stroke-width="2.6" stroke-linecap="round"/><path d="M74 26.5L78.5 28.8L76 33" stroke="#FF9900" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  flipkart: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><rect x="6" y="8" width="24" height="24" rx="4" fill="#2874F0"/><path d="M15 14H23V17.5H18.5V19.5H22.5V23H18.5V28H15V14Z" fill="#FFE500"/><text x="36" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="15" fill="#2874F0" letter-spacing="-0.3">Flipkart</text></svg>`,
+  blinkit: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><rect width="112" height="34" rx="6" fill="#F8CB46" y="3" x="4"/><rect x="10" y="8" width="24" height="24" rx="5" fill="#0C831F"/><text x="16" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="17" fill="#FFFFFF">b</text><text x="40" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="15" fill="#0C831F" letter-spacing="-0.3">blinkit</text></svg>`,
+  meesho: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><rect x="6" y="8" width="24" height="24" rx="6" fill="#F43397"/><path d="M12 25V15L16 21L20 15V25" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><text x="36" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="15" fill="#5A189A" letter-spacing="-0.3">meesho</text></svg>`
+};
+
 // Pre-rendered store cards for iPhone 15
 const storeCardsHtml = `
       <div class="store-card best-price-card">
         <span class="badge-pill badge-best-price store-card-badge">★ BEST PRICE</span>
         <div>
           <div class="store-card-top">
-            <div class="store-logo-wrapper">
-              <img class="store-logo-img" src="/static/images/stores/amazon.svg" alt="Amazon" onerror="this.onerror=null;this.src='/static/images/placeholder-product.svg'" />
+            <div class="store-logo-wrapper" title="Amazon">
+              ${STORE_SVGS.amazon}
             </div>
             <span class="store-rating-badge">★ 4.8</span>
           </div>
@@ -149,8 +157,8 @@ const storeCardsHtml = `
       <div class="store-card">
         <div>
           <div class="store-card-top">
-            <div class="store-logo-wrapper">
-              <img class="store-logo-img" src="/static/images/stores/flipkart.svg" alt="Flipkart" onerror="this.onerror=null;this.src='/static/images/placeholder-product.svg'" />
+            <div class="store-logo-wrapper" title="Flipkart">
+              ${STORE_SVGS.flipkart}
             </div>
             <span class="store-rating-badge">★ 4.6</span>
           </div>
@@ -178,8 +186,8 @@ const storeCardsHtml = `
       <div class="store-card">
         <div>
           <div class="store-card-top">
-            <div class="store-logo-wrapper">
-              <img class="store-logo-img" src="/static/images/stores/blinkit.svg" alt="Blinkit" onerror="this.onerror=null;this.src='/static/images/placeholder-product.svg'" />
+            <div class="store-logo-wrapper" title="Blinkit">
+              ${STORE_SVGS.blinkit}
             </div>
             <span class="store-rating-badge">★ 4.7</span>
           </div>
@@ -207,8 +215,8 @@ const storeCardsHtml = `
       <div class="store-card">
         <div>
           <div class="store-card-top">
-            <div class="store-logo-wrapper">
-              <img class="store-logo-img" src="/static/images/stores/meesho.svg" alt="Meesho" onerror="this.onerror=null;this.src='/static/images/placeholder-product.svg'" />
+            <div class="store-logo-wrapper" title="Meesho">
+              ${STORE_SVGS.meesho}
             </div>
             <span class="store-rating-badge">★ 4.3</span>
           </div>

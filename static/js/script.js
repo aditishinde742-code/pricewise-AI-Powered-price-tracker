@@ -110,9 +110,54 @@ function formatINR(val) {
   return '₹' + Number(val).toLocaleString('en-IN');
 }
 
+// Authentic Brand Vector Logos (Embedded inline for 100% resilient rendering in any deployment)
+const STORE_LOGOS_SVG = {
+  amazon: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><path d="M22 24.5C18.2 24.5 15.2 23.2 15.2 20.3C15.2 17.5 17.7 16.3 21.8 16.3C23.6 16.3 24.8 16.6 25.5 16.9V16.3C25.5 14.8 24.3 13.9 22.3 13.9C20.6 13.9 18.9 14.4 17.6 15.2L16.4 13.2C18 12.1 20.4 11.5 22.8 11.5C26.5 11.5 28.5 13.3 28.5 16.6V24.2H25.6V22.6C24.7 23.8 23.3 24.5 22 24.5ZM22.3 22.3C23.7 22.3 24.8 21.4 25.5 20.2V18.7C24.8 18.3 23.8 18.1 22.6 18.1C20.2 18.1 18.5 18.9 18.5 20.3C18.5 21.5 19.6 22.3 22.3 22.3Z" fill="#131921"/><text x="32" y="23" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="16" fill="#131921" letter-spacing="-0.5">amazon</text><path d="M18 29.5C28 35.5 58 35.5 78 28.5" stroke="#FF9900" stroke-width="2.6" stroke-linecap="round"/><path d="M74 26.5L78.5 28.8L76 33" stroke="#FF9900" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  flipkart: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><rect x="6" y="8" width="24" height="24" rx="4" fill="#2874F0"/><path d="M15 14H23V17.5H18.5V19.5H22.5V23H18.5V28H15V14Z" fill="#FFE500"/><text x="36" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="15" fill="#2874F0" letter-spacing="-0.3">Flipkart</text></svg>`,
+  blinkit: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><rect width="112" height="34" rx="6" fill="#F8CB46" y="3" x="4"/><rect x="10" y="8" width="24" height="24" rx="5" fill="#0C831F"/><text x="16" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="17" fill="#FFFFFF">b</text><text x="40" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="15" fill="#0C831F" letter-spacing="-0.3">blinkit</text></svg>`,
+  meesho: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><rect x="6" y="8" width="24" height="24" rx="6" fill="#F43397"/><path d="M12 25V15L16 21L20 15V25" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><text x="36" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="15" fill="#5A189A" letter-spacing="-0.3">meesho</text></svg>`,
+  zepto: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><rect width="112" height="34" rx="6" fill="#3D005E" y="3" x="4"/><circle cx="22" cy="20" r="10" fill="#FF3269"/><text x="18" y="24.5" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="13" fill="#FFFFFF">z</text><text x="38" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="15" fill="#FFFFFF" letter-spacing="-0.3">zepto</text></svg>`,
+  myntra: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><g transform="translate(6, 10)"><path d="M4 18L10 6L14 13L18 6L24 18" stroke="#FF3F6C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 18L10 12L13 18" stroke="#F16521" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g><text x="38" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="15" fill="#282C3F" letter-spacing="-0.3">Myntra</text></svg>`,
+  nykaa: `<svg viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="store-logo-svg"><text x="12" y="27" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="19" fill="#FC2779" letter-spacing="1">NYKAA</text></svg>`
+};
+
+function getStoreLogoHtml(storeName, logoUrl) {
+  const norm = String(storeName || '').toLowerCase().trim();
+  for (const [key, svg] of Object.entries(STORE_LOGOS_SVG)) {
+    if (norm.includes(key)) {
+      return svg;
+    }
+  }
+  if (logoUrl) {
+    return `<img class="store-logo-img" src="${logoUrl}" alt="${escapeHtml(storeName)}" onerror="handleStoreLogoError(this, '${escapeHtml(storeName)}')" />`;
+  }
+  return `<span style="font-weight:800;color:#131921;font-size:0.92rem;">${escapeHtml(storeName)}</span>`;
+}
+
+window.handleStoreLogoError = function(img, storeName) {
+  if (!img) return;
+  img.onerror = null;
+  const parent = img.parentElement;
+  if (parent) {
+    const norm = String(storeName || img.alt || '').toLowerCase().trim();
+    for (const [key, svg] of Object.entries(STORE_LOGOS_SVG)) {
+      if (norm.includes(key)) {
+        parent.innerHTML = svg;
+        return;
+      }
+    }
+    parent.innerHTML = `<span style="font-weight:800;color:#131921;font-size:0.92rem;">${escapeHtml(storeName || 'Store')}</span>`;
+  }
+};
+
 // Image Fallback Handler
 function handleImageError(img) {
+  if (!img) return;
   img.onerror = null;
+  if (img.classList && img.classList.contains('store-logo-img')) {
+    handleStoreLogoError(img, img.alt);
+    return;
+  }
   img.src = '/static/images/placeholder-product.svg';
 }
 
@@ -166,12 +211,37 @@ function clientGetProductPrices(productId) {
   const avg = prod.average_price || Math.round((lowest + highest) / 2);
   const potentialSave = Math.max(0, highest - lowest) || Math.round(lowest * 0.1);
 
-  const stores = [
-    { store_id: 1, store: "Amazon", logo: "/static/images/stores/amazon.svg", price: lowest, original_price: Math.round(lowest * 1.18), discount: 16, rating: 4.8, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: true, url: "https://www.amazon.in" },
-    { store_id: 2, store: "Flipkart", logo: "/static/images/stores/flipkart.svg", price: Math.round(lowest * 1.01), original_price: Math.round(lowest * 1.18), discount: 15, rating: 4.6, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: false, url: "https://flipkart.com" },
-    { store_id: 4, store: "Blinkit", logo: "/static/images/stores/blinkit.svg", price: Math.round(lowest * 1.02), original_price: Math.round(lowest * 1.18), discount: 14, rating: 4.7, availability: "In Stock", delivery: "10–15 mins delivery", is_best_price: false, url: "https://blinkit.com" },
-    { store_id: 3, store: "Meesho", logo: "/static/images/stores/meesho.svg", price: highest, original_price: Math.round(lowest * 1.18), discount: 13, rating: 4.3, availability: "In Stock", delivery: "Free · 3–4 days delivery", is_best_price: false, url: "https://meesho.com" }
-  ];
+  let stores = [];
+  const catLower = (prod.category || '').toLowerCase();
+  if (catLower.includes('fashion') || catLower.includes('sports')) {
+    stores = [
+      { store_id: 1, store: "Amazon", logo: "/static/images/stores/amazon.svg", price: lowest, original_price: Math.round(lowest * 1.18), discount: 16, rating: 4.8, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: true, url: "https://www.amazon.in" },
+      { store_id: 2, store: "Flipkart", logo: "/static/images/stores/flipkart.svg", price: Math.round(lowest * 1.02), original_price: Math.round(lowest * 1.18), discount: 14, rating: 4.6, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: false, url: "https://flipkart.com" },
+      { store_id: 6, store: "Myntra", logo: "/static/images/stores/myntra.svg", price: Math.round(lowest * 1.04), original_price: Math.round(lowest * 1.18), discount: 12, rating: 4.6, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: false, url: "https://myntra.com" },
+      { store_id: 3, store: "Meesho", logo: "/static/images/stores/meesho.svg", price: highest, original_price: Math.round(lowest * 1.18), discount: 10, rating: 4.3, availability: "In Stock", delivery: "Free · 3–4 days delivery", is_best_price: false, url: "https://meesho.com" }
+    ];
+  } else if (catLower.includes('beauty') || catLower.includes('fragrance')) {
+    stores = [
+      { store_id: 1, store: "Amazon", logo: "/static/images/stores/amazon.svg", price: lowest, original_price: Math.round(lowest * 1.18), discount: 16, rating: 4.8, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: true, url: "https://www.amazon.in" },
+      { store_id: 2, store: "Flipkart", logo: "/static/images/stores/flipkart.svg", price: Math.round(lowest * 1.01), original_price: Math.round(lowest * 1.18), discount: 15, rating: 4.6, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: false, url: "https://flipkart.com" },
+      { store_id: 7, store: "Nykaa", logo: "/static/images/stores/nykaa.svg", price: Math.round(lowest * 1.03), original_price: Math.round(lowest * 1.18), discount: 13, rating: 4.8, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: false, url: "https://nykaa.com" },
+      { store_id: 4, store: "Blinkit", logo: "/static/images/stores/blinkit.svg", price: highest, original_price: Math.round(lowest * 1.18), discount: 12, rating: 4.7, availability: "In Stock", delivery: "10–15 mins delivery", is_best_price: false, url: "https://blinkit.com" }
+    ];
+  } else if (catLower.includes('grocery') || catLower.includes('household')) {
+    stores = [
+      { store_id: 4, store: "Blinkit", logo: "/static/images/stores/blinkit.svg", price: lowest, original_price: Math.round(lowest * 1.18), discount: 16, rating: 4.7, availability: "In Stock", delivery: "10–15 mins delivery", is_best_price: true, url: "https://blinkit.com" },
+      { store_id: 5, store: "Zepto", logo: "/static/images/stores/zepto.svg", price: Math.round(lowest * 1.01), original_price: Math.round(lowest * 1.18), discount: 15, rating: 4.7, availability: "In Stock", delivery: "10–15 mins delivery", is_best_price: false, url: "https://zeptonow.com" },
+      { store_id: 1, store: "Amazon", logo: "/static/images/stores/amazon.svg", price: Math.round(lowest * 1.03), original_price: Math.round(lowest * 1.18), discount: 14, rating: 4.8, availability: "In Stock", delivery: "Free · 1–2 days delivery", is_best_price: false, url: "https://www.amazon.in" },
+      { store_id: 2, store: "Flipkart", logo: "/static/images/stores/flipkart.svg", price: highest, original_price: Math.round(lowest * 1.18), discount: 12, rating: 4.6, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: false, url: "https://flipkart.com" }
+    ];
+  } else {
+    stores = [
+      { store_id: 1, store: "Amazon", logo: "/static/images/stores/amazon.svg", price: lowest, original_price: Math.round(lowest * 1.18), discount: 16, rating: 4.8, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: true, url: "https://www.amazon.in" },
+      { store_id: 2, store: "Flipkart", logo: "/static/images/stores/flipkart.svg", price: Math.round(lowest * 1.01), original_price: Math.round(lowest * 1.18), discount: 15, rating: 4.6, availability: "In Stock", delivery: "Free · 2–3 days delivery", is_best_price: false, url: "https://flipkart.com" },
+      { store_id: 4, store: "Blinkit", logo: "/static/images/stores/blinkit.svg", price: Math.round(lowest * 1.02), original_price: Math.round(lowest * 1.18), discount: 14, rating: 4.7, availability: "In Stock", delivery: "10–15 mins delivery", is_best_price: false, url: "https://blinkit.com" },
+      { store_id: 3, store: "Meesho", logo: "/static/images/stores/meesho.svg", price: highest, original_price: Math.round(lowest * 1.18), discount: 13, rating: 4.3, availability: "In Stock", delivery: "Free · 3–4 days delivery", is_best_price: false, url: "https://meesho.com" }
+    ];
+  }
 
   return {
     id: prod.id,
@@ -478,8 +548,8 @@ function renderStoreCards(stores, lowestPrice) {
       ${bestBadge}
       <div>
         <div class="store-card-top">
-          <div class="store-logo-wrapper">
-            <img class="store-logo-img" src="${s.logo}" alt="${escapeHtml(s.store)}" onerror="handleImageError(this)" />
+          <div class="store-logo-wrapper" title="${escapeHtml(s.store || s.name || '')}">
+            ${getStoreLogoHtml(s.store || s.name, s.logo)}
           </div>
           <span class="store-rating-badge">★ ${s.store_rating || s.rating || 4.5}</span>
         </div>
