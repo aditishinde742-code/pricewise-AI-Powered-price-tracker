@@ -1,0 +1,6 @@
+{
+  "name": "PriceWise – Smart Price Comparison & Price Tracking Platform",
+  "description": "Compare prices across multiple stores, track price changes, get smart price drop alerts, and discover the right time to buy.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
